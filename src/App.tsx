@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './store/AppContext';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
@@ -10,7 +10,7 @@ import Tags from './pages/Tags';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <AppProvider>
         <Routes>
           <Route element={<Layout />}>
@@ -23,6 +23,6 @@ export default function App() {
           </Route>
         </Routes>
       </AppProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
