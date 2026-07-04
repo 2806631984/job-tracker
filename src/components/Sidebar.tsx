@@ -1,7 +1,8 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import {
-  LayoutDashboard, Briefcase, MessageSquare, Tags, PlusCircle,
+  LayoutDashboard, Briefcase, MessageSquare, Tags, PlusCircle, LogOut,
 } from 'lucide-react';
+import { useAuth } from '../store/AuthContext';
 
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: '数据看板' },
@@ -13,6 +14,7 @@ const navItems = [
 
 export default function Sidebar() {
   const location = useLocation();
+  const { user, signOut } = useAuth();
 
   return (
     <aside className="w-56 bg-white border-r border-gray-200 flex flex-col shrink-0">
@@ -47,8 +49,18 @@ export default function Sidebar() {
         })}
       </nav>
 
-      <div className="p-4 border-t border-gray-100 text-xs text-gray-400">
-        数据存储在本地浏览器
+      <div className="p-4 border-t border-gray-100 space-y-3">
+        <div className="flex items-center gap-2 text-xs text-gray-400">
+          <div className="w-2 h-2 rounded-full bg-green-400" />
+          {user?.email}
+        </div>
+        <button
+          onClick={signOut}
+          className="flex items-center gap-2 px-3 py-2 w-full text-sm text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+        >
+          <LogOut size={16} />
+          退出登录
+        </button>
       </div>
     </aside>
   );
