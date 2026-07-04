@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+:root {
+  --color-wishlist: #8b5cf6;
+  --color-applied: #3b82f6;
+  --color-screening: #f59e0b;
+  --color-interview: #06b6d4;
+  --color-offer: #10b981;
+  --color-accepted: #22c55e;
+  --color-rejected: #ef4444;
+}
+
+body {
+  margin: 0;
+  background: #f9fafb;
+  color: #111827;
+  min-height: 100vh;
+}
