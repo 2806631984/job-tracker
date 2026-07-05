@@ -170,15 +170,15 @@ export default function JobList() {
                 onClick={() => navigate(`/jobs/${job.id}`)}
                 className="bg-white rounded-xl border border-gray-200 p-4 hover:border-blue-300 hover:shadow-sm transition-all cursor-pointer"
               >
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex items-center gap-2 mb-1 flex-wrap">
                       <h3 className="text-base font-semibold text-gray-900 truncate">
                         {job.position}
                       </h3>
                       <StatusBadge status={job.status} />
                     </div>
-                    <p className="text-sm text-gray-600 flex items-center gap-1.5 mb-2">
+                    <p className="text-sm text-gray-600 flex items-center gap-1.5 mb-2 flex-wrap">
                       <Building2 size={13} />
                       {job.company}
                       {job.location && (
@@ -202,7 +202,7 @@ export default function JobList() {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3 shrink-0">
+                  <div className="flex items-center gap-3 shrink-0 sm:self-start">
                     {/* 快速状态切换 */}
                     <select
                       value={job.status}
