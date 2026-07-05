@@ -1,9 +1,11 @@
+import { useRef, useState } from 'react';
 import { useApp } from '../store/AppContext';
 import { computeStats } from '../utils/stats';
 import StatCard from '../components/StatCard';
 import {
   Briefcase, MessageSquare, TrendingUp, CheckCircle,
   Clock, Target, Send, XCircle,
+  Download, Upload, AlertCircle,
 } from 'lucide-react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
@@ -11,8 +13,82 @@ import {
 } from 'recharts';
 
 export default function Dashboard() {
-  const { state } = useApp();
+  const { state, addJob, addTemplate, addTag } = useApp();
   const stats = computeStats(state.jobs);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [importMsg, setImportMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  // 导出
+  const handleExport = () => {
+    const data = {
+      exportedAt: new Date().toISOString(),
+      jobs: state.jobs,
+      templates: state.templates,
+      tags: state.tags,
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `job-tracker-backup-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // 导入
+  const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setImportMsg(null);
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+
+      if (!data.jobs || !data.templates || !data.tags) {
+        setImportMsg({ type: 'error', text: '文件格式不正确，缺少 jobs/templates/tags 数据' });
+        return;
+      }
+
+      let imported = 0;
+      // 导入标签
+      for (const tag of data.tags) {
+        await addTag({ name: tag.name, color: tag.color, group: tag.group });
+        imported++;
+      }
+      // 导入模板
+      for (const tpl of data.templates) {
+        await addTemplate({ title: tpl.title, scenario: tpl.scenario, content: tpl.content });
+        imported++;
+      }
+      // 导入岗位
+      for (const job of data.jobs) {
+        await addJob({
+          company: job.company,
+          position: job.position,
+          status: job.status,
+          salary: job.salary || '',
+          location: job.location || '',
+          platform: job.platform || '',
+          applyDate: job.applyDate || new Date().toISOString().split('T')[0],
+          jobUrl: job.jobUrl || '',
+          note: job.note || '',
+          contactName: job.contactName || '',
+          contactInfo: job.contactInfo || '',
+          templateId: job.templateId || null,
+          tagIds: job.tagIds || [],
+        });
+        imported++;
+      }
+
+      setImportMsg({ type: 'success', text: `导入成功！共恢复 ${imported} 条数据` });
+    } catch {
+      setImportMsg({ type: 'error', text: '文件解析失败，请确认是 JSON 格式的备份文件' });
+    }
+
+    // 清空 input 以便重复导入同一文件
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
 
   return (
     <div>
@@ -89,6 +165,53 @@ export default function Dashboard() {
           <div className="text-sm text-gray-500">本月新增投递</div>
           <div className="text-3xl font-bold text-blue-600 mt-1">{stats.thisMonth}</div>
         </div>
+      </div>
+
+      {/* 数据导出/导入 */}
+      <div className="mt-6 bg-white rounded-xl border border-gray-200 p-5">
+        <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
+          数据备份
+        </h3>
+
+        {importMsg && (
+          <div className={`flex items-center gap-2 text-sm px-4 py-2.5 rounded-lg mb-4 ${
+            importMsg.type === 'success'
+              ? 'bg-green-50 text-green-700'
+              : 'bg-red-50 text-red-700'
+          }`}>
+            <AlertCircle size={16} />
+            {importMsg.text}
+          </div>
+        )}
+
+        <div className="flex flex-col sm:flex-row gap-3">
+          <button
+            onClick={handleExport}
+            className="flex items-center justify-center gap-2 px-5 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-xl hover:bg-blue-700 transition-colors"
+          >
+            <Download size={16} />
+            导出备份（JSON）
+          </button>
+
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".json"
+            onChange={handleImport}
+            className="hidden"
+          />
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            className="flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-gray-700 text-sm font-medium rounded-xl border border-gray-300 hover:bg-gray-50 transition-colors"
+          >
+            <Upload size={16} />
+            导入备份（JSON）
+          </button>
+        </div>
+
+        <p className="text-xs text-gray-400 mt-3">
+          导出数据为 JSON 文件保存到本地。重装系统或换设备后，登录同一账号再导入即可恢复。
+        </p>
       </div>
     </div>
   );
