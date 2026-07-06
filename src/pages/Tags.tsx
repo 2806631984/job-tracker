@@ -76,17 +76,20 @@ export default function Tags() {
       </div>
 
       {state.tags.length === 0 ? (
-        <div className="text-center py-20 bg-white rounded-xl border border-gray-200">
-          <FolderOpen size={48} className="mx-auto mb-4 text-gray-300" />
-          <p className="text-gray-500 mb-3">还没有标签，快速创建第一批标签吧</p>
+        <div className="text-center py-16 bg-white rounded-xl border border-gray-200">
+          <div className="inline-flex items-center justify-center w-14 h-14 bg-blue-50 rounded-2xl mb-4">
+            <FolderOpen size={28} className="text-blue-400" />
+          </div>
+          <h3 className="text-base font-semibold text-gray-700 mb-1">还没有分类标签</h3>
+          <p className="text-sm text-gray-400 mb-5">创建标签后，投递岗位时可以按行业、薪资、城市等维度分类</p>
           <div className="flex gap-2 justify-center flex-wrap">
-            {PRESET_GROUPS.map((g) => (
+            {PRESET_GROUPS.filter(g => g !== '其他').map((g) => (
               <button
                 key={g}
                 onClick={() => openNew(g)}
                 className="px-3 py-1.5 text-sm text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
               >
-                + {g}
+                + {g}标签
               </button>
             ))}
           </div>
