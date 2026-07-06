@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --color-wishlist: #8b5cf6;
   --color-applied: #3b82f6;
@@ -15,4 +17,10 @@ body {
   background: #f9fafb;
   color: #111827;
   min-height: 100vh;
+}
+
+.dark body,
+body:has(.dark) {
+  background: #0f172a;
+  color: #e2e8f0;
 }
