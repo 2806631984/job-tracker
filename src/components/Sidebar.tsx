@@ -1,7 +1,7 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Briefcase, MessageSquare, Tags, PlusCircle, LogOut, X,
-  Sun, Moon,
+  Sun, Moon, Key,
 } from 'lucide-react';
 import { useAuth } from '../store/AuthContext';
 import { useDarkMode } from '../hooks/useDarkMode';
@@ -66,6 +66,14 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
           <div className="w-2 h-2 rounded-full bg-green-400 shrink-0" />
           <span className="truncate">{user?.email}</span>
         </div>
+        <NavLink
+          to="/change-password"
+          onClick={onNavigate}
+          className="flex items-center gap-2 px-3 py-2 w-full text-sm text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+        >
+          <Key size={16} />
+          修改密码
+        </NavLink>
         <button
           onClick={toggle}
           className="flex items-center gap-2 px-3 py-2 w-full text-sm text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
