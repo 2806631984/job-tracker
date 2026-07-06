@@ -25,7 +25,7 @@ export default function JobDetail() {
   if (!job) {
     return (
       <div className="text-center py-20">
-        <p className="text-gray-500 mb-3">岗位不存在或已被删除</p>
+        <p className="text-gray-500 dark:text-gray-400 dark:text-gray-500 mb-3">岗位不存在或已被删除</p>
         <button
           onClick={() => navigate('/jobs')}
           className="text-sm text-blue-600 hover:text-blue-700 font-medium"
@@ -85,7 +85,7 @@ export default function JobDetail() {
       <div className="flex items-center justify-between mb-6">
         <button
           onClick={() => navigate('/jobs')}
-          className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+          className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:text-gray-200 transition-colors"
         >
           <ArrowLeft size={16} />
           返回列表
@@ -93,7 +93,7 @@ export default function JobDetail() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => navigate(`/jobs/new`)}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-800 transition-colors"
           >
             <Pencil size={14} />
             编辑
@@ -106,14 +106,14 @@ export default function JobDetail() {
               sessionStorage.setItem('edit-job', JSON.stringify(job));
               navigate('/jobs/new');
             }}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-800 transition-colors"
           >
             <Pencil size={14} />
             编辑
           </button>
           <button
             onClick={handleDelete}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-red-600 bg-red-50 dark:bg-red-900/30 border border-red-200 rounded-lg hover:bg-red-100 transition-colors"
           >
             <Trash2 size={14} />
             删除
@@ -122,11 +122,11 @@ export default function JobDetail() {
       </div>
 
       {/* 岗位信息卡片 */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6 mb-4">
+      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-6 mb-4">
         <div className="flex items-start justify-between mb-4">
           <div>
-            <h1 className="text-xl font-bold text-gray-900 mb-1">{job.position}</h1>
-            <p className="text-gray-600 flex items-center gap-1.5">
+            <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">{job.position}</h1>
+            <p className="text-gray-600 dark:text-gray-300 flex items-center gap-1.5">
               <Building2 size={15} />
               {job.company}
             </p>
@@ -136,7 +136,7 @@ export default function JobDetail() {
             <select
               value={job.status}
               onChange={(e) => handleStatusChange(e.target.value as JobStatus)}
-              className="text-xs border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="text-xs border border-gray-200 dark:border-gray-700 rounded-lg px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500"
             >
               {STATUS_ORDER.map((s) => (
                 <option key={s} value={s}>
@@ -172,7 +172,7 @@ export default function JobDetail() {
           {job.jobUrl && (
             <div className="flex items-center gap-2 text-gray-500">
               <Link2 size={14} />
-              <span className="text-gray-400 text-xs">链接</span>
+              <span className="text-gray-400 dark:text-gray-500 text-xs">链接</span>
               <a
                 href={job.jobUrl}
                 target="_blank"
@@ -188,7 +188,7 @@ export default function JobDetail() {
 
         {/* 标签 */}
         {tags.length > 0 && (
-          <div className="flex gap-1.5 flex-wrap mt-4 pt-4 border-t border-gray-100">
+          <div className="flex gap-1.5 flex-wrap mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
             {tags.map((tag) => (
               <TagBadge key={tag.id} name={tag.name} color={tag.color} />
             ))}
@@ -198,21 +198,21 @@ export default function JobDetail() {
 
       {/* 打招呼模板 */}
       {template && (
-        <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-5 mb-4">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-semibold text-gray-600 flex items-center gap-2">
+            <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-300 flex items-center gap-2">
               <MessageSquare size={16} />
               打招呼模板：{template.title}
             </h3>
             <button
               onClick={copyTemplate}
-              className="flex items-center gap-1 px-3 py-1.5 text-xs text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+              className="flex items-center gap-1 px-3 py-1.5 text-xs text-blue-600 bg-blue-50 dark:bg-blue-900/30 rounded-lg hover:bg-blue-100 transition-colors"
             >
               <Copy size={12} />
               复制话术
             </button>
           </div>
-          <p className="text-sm text-gray-600 bg-gray-50 rounded-lg p-3 whitespace-pre-wrap">
+          <p className="text-sm text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 rounded-lg p-3 whitespace-pre-wrap">
             {template.content
               .replace(/\{岗位名称\}/g, job.position)
               .replace(/\{公司名称\}/g, job.company)}
@@ -222,18 +222,18 @@ export default function JobDetail() {
 
       {/* 备注 */}
       {job.note && (
-        <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
-          <h3 className="text-sm font-semibold text-gray-600 flex items-center gap-2 mb-2">
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-5 mb-4">
+          <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-300 flex items-center gap-2 mb-2">
             <StickyNote size={16} />
             备注
           </h3>
-          <p className="text-sm text-gray-700 whitespace-pre-wrap">{job.note}</p>
+          <p className="text-sm text-gray-700 dark:text-gray-200 whitespace-pre-wrap">{job.note}</p>
         </div>
       )}
 
       {/* 时间线 */}
-      <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
-        <h3 className="text-sm font-semibold text-gray-600 flex items-center gap-2 mb-4">
+      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-5 mb-4">
+        <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-300 flex items-center gap-2 mb-4">
           <Clock size={16} />
           时间线
         </h3>
@@ -243,7 +243,7 @@ export default function JobDetail() {
           <select
             value={timelineType}
             onChange={(e) => setTimelineType(e.target.value as typeof timelineType)}
-            className="text-xs border border-gray-200 rounded-lg px-2 py-2 shrink-0 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="text-xs border border-gray-200 dark:border-gray-700 rounded-lg px-2 py-2 shrink-0 focus:outline-none focus:ring-1 focus:ring-blue-500"
           >
             {Object.entries(timelineTypeLabels).map(([k, v]) => (
               <option key={k} value={k}>{v}</option>
@@ -255,7 +255,7 @@ export default function JobDetail() {
             onChange={(e) => setTimelineContent(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleAddTimeline()}
             placeholder="添加事件..."
-            className="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-1 px-3 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
             onClick={handleAddTimeline}
@@ -267,7 +267,7 @@ export default function JobDetail() {
         </div>
 
         {job.timeline.length === 0 ? (
-          <p className="text-sm text-gray-400 text-center py-4">暂无事件，记录面试、回复等进展吧</p>
+          <p className="text-sm text-gray-400 dark:text-gray-500 text-center py-4">暂无事件，记录面试、回复等进展吧</p>
         ) : (
           <div className="space-y-0">
             {[...job.timeline]
@@ -300,7 +300,7 @@ export default function JobDetail() {
                             setEditingEventId(event.id);
                             setEditContent(event.content);
                           }}
-                          className="p-1 text-gray-400 hover:text-blue-600 rounded"
+                          className="p-1 text-gray-400 dark:text-gray-500 hover:text-blue-600 rounded"
                           title="编辑"
                         >
                           <Pencil size={12} />
@@ -311,7 +311,7 @@ export default function JobDetail() {
                               deleteTimelineEvent(job.id, event.id);
                             }
                           }}
-                          className="p-1 text-gray-400 hover:text-red-600 rounded"
+                          className="p-1 text-gray-400 dark:text-gray-500 hover:text-red-600 rounded"
                           title="删除"
                         >
                           <Trash2 size={12} />
@@ -340,13 +340,13 @@ export default function JobDetail() {
                             updateTimelineEvent(job.id, event.id, { content: editContent });
                             setEditingEventId(null);
                           }}
-                          className="p-1 text-green-600 hover:bg-green-50 rounded"
+                          className="p-1 text-green-600 hover:bg-green-50 dark:bg-green-900/30 rounded"
                         >
                           <Check size={14} />
                         </button>
                         <button
                           onClick={() => setEditingEventId(null)}
-                          className="p-1 text-gray-400 hover:bg-gray-100 rounded"
+                          className="p-1 text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
                         >
                           <X size={14} />
                         </button>
@@ -369,7 +369,7 @@ function InfoRow({ icon, label, value }: { icon: React.ReactNode; label: string;
   return (
     <div className="flex items-center gap-2 text-gray-500">
       {icon}
-      <span className="text-gray-400 text-xs">{label}</span>
+      <span className="text-gray-400 dark:text-gray-500 text-xs">{label}</span>
       <span className="text-gray-700">{value}</span>
     </div>
   );
