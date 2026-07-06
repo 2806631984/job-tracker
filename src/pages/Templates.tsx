@@ -72,7 +72,7 @@ export default function Templates() {
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-800">
           打招呼模板
-          <span className="text-base font-normal text-gray-400 ml-2">({filtered.length})</span>
+          <span className="text-base font-normal text-gray-400 dark:text-gray-500 ml-2">({filtered.length})</span>
         </h2>
         <button
           onClick={openNew}
@@ -92,13 +92,13 @@ export default function Templates() {
             placeholder="搜索模板..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <select
           value={scenarioFilter}
           onChange={(e) => setScenarioFilter(e.target.value)}
-          className="text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="text-sm border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500"
         >
           <option value="">全部场景</option>
           {scenarios.map((s) => (
@@ -109,14 +109,14 @@ export default function Templates() {
 
       {/* 模板列表 */}
       {filtered.length === 0 ? (
-        <div className="text-center py-16 bg-white rounded-xl border border-gray-200">
+        <div className="text-center py-16 bg-white dark:bg-gray-900 rounded-xl border border-gray-200">
           {state.templates.length === 0 ? (
             <>
-              <div className="inline-flex items-center justify-center w-14 h-14 bg-blue-50 rounded-2xl mb-4">
+              <div className="inline-flex items-center justify-center w-14 h-14 bg-blue-50 dark:bg-blue-900/30 rounded-2xl mb-4">
                 <MessageSquare size={28} className="text-blue-400" />
               </div>
-              <h3 className="text-base font-semibold text-gray-700 mb-1">还没有打招呼模板</h3>
-              <p className="text-sm text-gray-400 mb-5">创建模板后，新增岗位时可以快速选择话术</p>
+              <h3 className="text-base font-semibold text-gray-700 dark:text-gray-200 mb-1">还没有打招呼模板</h3>
+              <p className="text-sm text-gray-400 dark:text-gray-500 mb-5">创建模板后，新增岗位时可以快速选择话术</p>
               <button
                 onClick={openNew}
                 className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-xl hover:bg-blue-700 transition-colors"
@@ -132,25 +132,25 @@ export default function Templates() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filtered.map((tpl) => (
-            <div key={tpl.id} className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-sm transition-shadow">
+            <div key={tpl.id} className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-4 hover:shadow-sm transition-shadow">
               <div className="flex items-start justify-between mb-2">
                 <div>
-                  <h3 className="font-semibold text-gray-800 text-sm">{tpl.title}</h3>
-                  <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded mt-1 inline-block">
+                  <h3 className="font-semibold text-gray-800 dark:text-gray-100 text-sm">{tpl.title}</h3>
+                  <span className="text-xs text-gray-400 dark:text-gray-500 bg-gray-100 px-2 py-0.5 rounded mt-1 inline-block">
                     {tpl.scenario}
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => handleCopy(tpl.content, tpl.id)}
-                    className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                    className="p-1.5 text-gray-400 dark:text-gray-500 hover:text-blue-600 hover:bg-blue-50 dark:bg-blue-900/30 rounded-lg transition-colors"
                     title={copiedId === tpl.id ? '已复制' : '复制'}
                   >
                     {copiedId === tpl.id ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
                   </button>
                   <button
                     onClick={() => openEdit(tpl)}
-                    className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                    className="p-1.5 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
                   >
                     <Pencil size={14} />
                   </button>
@@ -158,16 +158,16 @@ export default function Templates() {
                     onClick={() => {
                       if (confirm('确定删除这个模板吗？')) deleteTemplate(tpl.id);
                     }}
-                    className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    className="p-1.5 text-gray-400 dark:text-gray-500 hover:text-red-600 hover:bg-red-50 dark:bg-red-900/30 rounded-lg transition-colors"
                   >
                     <Trash2 size={14} />
                   </button>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 whitespace-pre-wrap line-clamp-4">
+              <p className="text-sm text-gray-600 dark:text-gray-300 whitespace-pre-wrap line-clamp-4">
                 {tpl.content}
               </p>
-              <div className="mt-2 pt-2 border-t border-gray-100 text-xs text-gray-400">
+              <div className="mt-2 pt-2 border-t border-gray-100 dark:border-gray-700 text-xs text-gray-400">
                 {`{岗位名称}`} {`{公司名称}`} 等占位符会在使用时自动替换
               </div>
             </div>
@@ -178,14 +178,14 @@ export default function Templates() {
       {/* 新增/编辑弹窗 */}
       {showForm && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-lg mx-4 shadow-xl">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 w-full max-w-lg mx-4 shadow-xl">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-bold text-gray-800">
                 {editingId ? '编辑模板' : '新增模板'}
               </h3>
               <button
                 onClick={() => setShowForm(false)}
-                className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
               >
                 <X size={18} className="text-gray-400" />
               </button>
@@ -193,24 +193,24 @@ export default function Templates() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">模板名称</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">模板名称</label>
                 <input
                   type="text"
                   value={formTitle}
                   onChange={(e) => setFormTitle(e.target.value)}
                   placeholder="如：Boss直聘-技术岗"
-                  className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">场景分类</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">场景分类</label>
                 <input
                   type="text"
                   value={formScenario}
                   onChange={(e) => setFormScenario(e.target.value)}
                   placeholder="如：Boss直聘、猎聘、官网/内推"
                   list="scenarios-list"
-                  className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <datalist id="scenarios-list">
                   {scenarios.map((s) => (
@@ -219,9 +219,9 @@ export default function Templates() {
                 </datalist>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                   话术内容
-                  <span className="text-gray-400 font-normal ml-2">
+                  <span className="text-gray-400 dark:text-gray-500 font-normal ml-2">
                     （可用 {'{岗位名称}'} {'{公司名称}'} 作为占位符）
                   </span>
                 </label>
@@ -230,7 +230,7 @@ export default function Templates() {
                   onChange={(e) => setFormContent(e.target.value)}
                   placeholder="您好，我对贵司的{岗位名称}岗位很感兴趣..."
                   rows={5}
-                  className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                  className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                 />
               </div>
             </div>
@@ -238,7 +238,7 @@ export default function Templates() {
             <div className="flex gap-2 mt-6">
               <button
                 onClick={() => setShowForm(false)}
-                className="flex-1 px-4 py-2.5 text-sm text-gray-600 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors"
+                className="flex-1 px-4 py-2.5 text-sm text-gray-600 dark:text-gray-300 bg-gray-100 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               >
                 取消
               </button>
