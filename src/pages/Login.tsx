@@ -34,7 +34,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800 flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-8">
@@ -42,26 +42,26 @@ export default function Login() {
             <Briefcase size={28} className="text-white" />
           </div>
           <h1 className="text-xl font-bold text-gray-800">投简历助手</h1>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-500 mt-1">
             {isRegister ? '创建账号，开始记录投递' : '登录你的账号'}
           </p>
         </div>
 
         {/* 表单 */}
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm space-y-4">
+        <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm space-y-4">
           {error && (
-            <div className="bg-red-50 text-red-600 text-sm px-4 py-2.5 rounded-lg">
+            <div className="bg-red-50 dark:bg-red-900/30 text-red-600 text-sm px-4 py-2.5 rounded-lg">
               {error}
             </div>
           )}
           {message && (
-            <div className="bg-green-50 text-green-600 text-sm px-4 py-2.5 rounded-lg">
+            <div className="bg-green-50 dark:bg-green-900/30 text-green-600 text-sm px-4 py-2.5 rounded-lg">
               {message}
             </div>
           )}
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
               <Mail size={14} className="inline mr-1.5" />
               邮箱
             </label>
@@ -71,12 +71,12 @@ export default function Login() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
               required
-              className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2.5 text-sm border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1.5">
               <Lock size={14} className="inline mr-1.5" />
               密码
             </label>
@@ -87,7 +87,7 @@ export default function Login() {
               placeholder="至少6位"
               required
               minLength={6}
-              className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2.5 text-sm border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
 
