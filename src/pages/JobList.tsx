@@ -9,9 +9,10 @@ import {
   Search, Filter, MapPin, Building2, Calendar, ChevronRight,
   Briefcase, Plus, PlusCircle,
 } from 'lucide-react';
+import { CardSkeleton } from '../components/Skeleton';
 
 export default function JobList() {
-  const { state, updateJob } = useApp();
+  const { state, loading, updateJob } = useApp();
   const navigate = useNavigate();
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<JobStatus | 'all'>('all');
@@ -140,8 +141,16 @@ export default function JobList() {
         )}
       </div>
 
+      {/* 加载骨架屏 */}
+      {loading && (
+        <div className="space-y-3">
+          <CardSkeleton /><CardSkeleton /><CardSkeleton />
+        </div>
+      )}
+
       {/* 岗位列表 */}
-      {filtered.length === 0 ? (
+      {!loading && (
+        filtered.length === 0 ? (
         <div className="text-center py-16 bg-white dark:bg-gray-900 rounded-xl border border-gray-200">
           {state.jobs.length === 0 ? (
             <>
@@ -247,6 +256,7 @@ export default function JobList() {
             );
           })}
         </div>
+      )
       )}
     </div>
   );
