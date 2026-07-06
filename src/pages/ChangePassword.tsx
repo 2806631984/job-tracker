@@ -1,10 +1,13 @@
 import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
+import { useAuth } from '../store/AuthContext';
 import { ArrowLeft, Lock, Save } from 'lucide-react';
 
 export default function ChangePassword() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const [oldPassword, setOldPassword] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [error, setError] = useState('');
@@ -16,8 +19,16 @@ export default function ChangePassword() {
     setError('');
     setSuccess('');
 
+    if (!oldPassword) {
+      setError('请输入旧密码');
+      return;
+    }
     if (password.length < 6) {
-      setError('密码至少 6 位');
+      setError('新密码至少 6 位');
+      return;
+    }
+    if (password === oldPassword) {
+      setError('新密码不能与旧密码相同');
       return;
     }
     if (password !== confirm) {
@@ -26,6 +37,19 @@ export default function ChangePassword() {
     }
 
     setLoading(true);
+
+    // 先验证旧密码
+    const { error: signInErr } = await supabase.auth.signInWithPassword({
+      email: user?.email || '',
+      password: oldPassword,
+    });
+    if (signInErr) {
+      setError('旧密码不正确');
+      setLoading(false);
+      return;
+    }
+
+    // 修改密码
     const { error: err } = await supabase.auth.updateUser({ password });
     setLoading(false);
 
@@ -33,6 +57,7 @@ export default function ChangePassword() {
       setError(err.message);
     } else {
       setSuccess('密码修改成功！');
+      setOldPassword('');
       setPassword('');
       setConfirm('');
     }
@@ -61,6 +86,21 @@ export default function ChangePassword() {
             {success}
           </div>
         )}
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+            <Lock size={14} className="inline mr-1.5" />
+            旧密码
+          </label>
+          <input
+            type="password"
+            value={oldPassword}
+            onChange={(e) => setOldPassword(e.target.value)}
+            placeholder="输入当前密码"
+            required
+            className="w-full px-3 py-2.5 text-sm border border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
