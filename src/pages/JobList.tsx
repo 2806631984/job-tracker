@@ -65,7 +65,7 @@ export default function JobList() {
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-800">
           岗位列表
-          <span className="text-base font-normal text-gray-400 ml-2">({filtered.length})</span>
+          <span className="text-base font-normal text-gray-400 dark:text-gray-500 ml-2">({filtered.length})</span>
         </h2>
         <button
           onClick={() => navigate('/jobs/new')}
@@ -77,7 +77,7 @@ export default function JobList() {
       </div>
 
       {/* 搜索 + 筛选栏 */}
-      <div className="bg-white rounded-xl border border-gray-200 p-4 mb-4 space-y-3">
+      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-4 mb-4 space-y-3">
         {/* 搜索框 */}
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -86,7 +86,7 @@ export default function JobList() {
             placeholder="搜索公司、岗位、地点..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
 
@@ -98,7 +98,7 @@ export default function JobList() {
             className={`text-xs px-2.5 py-1 rounded-full font-medium transition-colors ${
               statusFilter === 'all'
                 ? 'bg-gray-800 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-gray-100 text-gray-600 dark:text-gray-300 hover:bg-gray-200'
             }`}
           >
             全部
@@ -112,7 +112,7 @@ export default function JobList() {
                 className={`text-xs px-2.5 py-1 rounded-full font-medium transition-colors ${
                   statusFilter === s
                     ? `${config.bg} ${config.color} ring-1 ring-current`
-                    : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                    : 'bg-gray-100 text-gray-500 dark:text-gray-400 dark:text-gray-500 hover:bg-gray-200'
                 }`}
               >
                 {config.label}
@@ -124,7 +124,7 @@ export default function JobList() {
         {/* 标签筛选 */}
         {allTags.length > 0 && (
           <div className="flex items-start gap-2 flex-wrap">
-            <span className="text-xs text-gray-400 mt-1 shrink-0">标签:</span>
+            <span className="text-xs text-gray-400 dark:text-gray-500 mt-1 shrink-0">标签:</span>
             <div className="flex gap-1.5 flex-wrap">
               {allTags.map((tag) => (
                 <TagBadge
@@ -142,14 +142,14 @@ export default function JobList() {
 
       {/* 岗位列表 */}
       {filtered.length === 0 ? (
-        <div className="text-center py-16 bg-white rounded-xl border border-gray-200">
+        <div className="text-center py-16 bg-white dark:bg-gray-900 rounded-xl border border-gray-200">
           {state.jobs.length === 0 ? (
             <>
-              <div className="inline-flex items-center justify-center w-14 h-14 bg-blue-50 rounded-2xl mb-4">
+              <div className="inline-flex items-center justify-center w-14 h-14 bg-blue-50 dark:bg-blue-900/30 rounded-2xl mb-4">
                 <Briefcase size={28} className="text-blue-400" />
               </div>
-              <h3 className="text-base font-semibold text-gray-700 mb-1">还没有投递记录</h3>
-              <p className="text-sm text-gray-400 mb-5">添加你的第一条投递，开始追踪求职进度</p>
+              <h3 className="text-base font-semibold text-gray-700 dark:text-gray-200 mb-1">还没有投递记录</h3>
+              <p className="text-sm text-gray-400 dark:text-gray-500 mb-5">添加你的第一条投递，开始追踪求职进度</p>
               <button
                 onClick={() => navigate('/jobs/new')}
                 className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-xl hover:bg-blue-700 transition-colors"
@@ -162,7 +162,7 @@ export default function JobList() {
             <>
               <Briefcase size={48} className="mx-auto mb-4 text-gray-300" />
               <p className="text-gray-500">没有匹配的岗位</p>
-              <p className="text-xs text-gray-400 mt-1">试试调整筛选条件</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">试试调整筛选条件</p>
             </>
           )}
         </div>
@@ -178,17 +178,17 @@ export default function JobList() {
               <div
                 key={job.id}
                 onClick={() => navigate(`/jobs/${job.id}`)}
-                className="bg-white rounded-xl border border-gray-200 p-4 hover:border-blue-300 hover:shadow-sm transition-all cursor-pointer"
+                className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-4 hover:border-blue-300 hover:shadow-sm transition-all cursor-pointer"
               >
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <h3 className="text-base font-semibold text-gray-900 truncate">
+                      <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 truncate">
                         {job.position}
                       </h3>
                       <StatusBadge status={job.status} />
                     </div>
-                    <p className="text-sm text-gray-600 flex items-center gap-1.5 mb-2 flex-wrap">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 flex items-center gap-1.5 mb-2 flex-wrap">
                       <Building2 size={13} />
                       {job.company}
                       {job.location && (
@@ -221,7 +221,7 @@ export default function JobList() {
                         handleStatusChange(job.id, e.target.value as JobStatus);
                       }}
                       onClick={(e) => e.stopPropagation()}
-                      className="text-xs border border-gray-200 rounded-lg px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="text-xs border border-gray-200 dark:border-gray-700 rounded-lg px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     >
                       {STATUS_ORDER.map((s) => (
                         <option key={s} value={s}>
@@ -229,7 +229,7 @@ export default function JobList() {
                         </option>
                       ))}
                     </select>
-                    <div className="flex items-center text-xs text-gray-400 gap-1">
+                    <div className="flex items-center text-xs text-gray-400 dark:text-gray-500 gap-1">
                       <Calendar size={12} />
                       {new Date(job.applyDate).toLocaleDateString('zh-CN')}
                     </div>
@@ -239,7 +239,7 @@ export default function JobList() {
 
                 {/* 关联模板提示 */}
                 {template && (
-                  <div className="mt-2 pt-2 border-t border-gray-100 text-xs text-gray-400">
+                  <div className="mt-2 pt-2 border-t border-gray-100 dark:border-gray-700 text-xs text-gray-400">
                     📝 打招呼模板：{template.title}
                   </div>
                 )}
