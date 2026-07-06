@@ -8,16 +8,19 @@ import { STATUS_CONFIG, STATUS_ORDER } from '../types';
 import {
   ArrowLeft, Pencil, Trash2, Building2, MapPin, Globe, Calendar, Link2,
   User, Phone, MessageSquare, StickyNote, Clock, Plus, Copy, ExternalLink,
+  Check, X,
 } from 'lucide-react';
 
 export default function JobDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { state, updateJob, deleteJob, addTimelineEvent } = useApp();
+  const { state, updateJob, deleteJob, addTimelineEvent, updateTimelineEvent, deleteTimelineEvent } = useApp();
   const job = state.jobs.find((j) => j.id === id);
 
   const [timelineContent, setTimelineContent] = useState('');
   const [timelineType, setTimelineType] = useState<'reply' | 'interview' | 'offer' | 'reject' | 'note'>('note');
+  const [editingEventId, setEditingEventId] = useState<string | null>(null);
+  const [editContent, setEditContent] = useState('');
 
   if (!job) {
     return (
@@ -270,7 +273,7 @@ export default function JobDetail() {
             {[...job.timeline]
               .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
               .map((event, idx, arr) => (
-                <div key={event.id} className="flex gap-3">
+                <div key={event.id} className="flex gap-3 group">
                   {/* 时间线竖线 */}
                   <div className="flex flex-col items-center">
                     <div className={`w-2.5 h-2.5 rounded-full mt-1.5 shrink-0 ${
@@ -282,7 +285,7 @@ export default function JobDetail() {
                     }`} />
                     {idx < arr.length - 1 && <div className="w-0.5 flex-1 bg-gray-200 min-h-[20px]" />}
                   </div>
-                  <div className="pb-4 flex-1">
+                  <div className="pb-4 flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-0.5">
                       <span className="text-xs text-gray-400">
                         {new Date(event.date).toLocaleString('zh-CN')}
@@ -290,8 +293,67 @@ export default function JobDetail() {
                       <span className="text-xs px-1.5 py-0.5 rounded bg-gray-100 text-gray-600">
                         {timelineTypeLabels[event.type] || event.type}
                       </span>
+                      {/* 编辑/删除按钮 */}
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5 ml-auto">
+                        <button
+                          onClick={() => {
+                            setEditingEventId(event.id);
+                            setEditContent(event.content);
+                          }}
+                          className="p-1 text-gray-400 hover:text-blue-600 rounded"
+                          title="编辑"
+                        >
+                          <Pencil size={12} />
+                        </button>
+                        <button
+                          onClick={() => {
+                            if (confirm('确定删除这条事件吗？')) {
+                              deleteTimelineEvent(job.id, event.id);
+                            }
+                          }}
+                          className="p-1 text-gray-400 hover:text-red-600 rounded"
+                          title="删除"
+                        >
+                          <Trash2 size={12} />
+                        </button>
+                      </div>
                     </div>
-                    <p className="text-sm text-gray-700">{event.content}</p>
+                    {editingEventId === event.id ? (
+                      <div className="flex gap-1.5">
+                        <input
+                          type="text"
+                          value={editContent}
+                          onChange={(e) => setEditContent(e.target.value)}
+                          className="flex-1 px-2 py-1 text-sm border border-blue-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
+                          autoFocus
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              updateTimelineEvent(job.id, event.id, { content: editContent });
+                              setEditingEventId(null);
+                            } else if (e.key === 'Escape') {
+                              setEditingEventId(null);
+                            }
+                          }}
+                        />
+                        <button
+                          onClick={() => {
+                            updateTimelineEvent(job.id, event.id, { content: editContent });
+                            setEditingEventId(null);
+                          }}
+                          className="p-1 text-green-600 hover:bg-green-50 rounded"
+                        >
+                          <Check size={14} />
+                        </button>
+                        <button
+                          onClick={() => setEditingEventId(null)}
+                          className="p-1 text-gray-400 hover:bg-gray-100 rounded"
+                        >
+                          <X size={14} />
+                        </button>
+                      </div>
+                    ) : (
+                      <p className="text-sm text-gray-700">{event.content}</p>
+                    )}
                   </div>
                 </div>
               ))}
