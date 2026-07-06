@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useApp } from '../store/AppContext';
 import { computeStats } from '../utils/stats';
 import StatCard from '../components/StatCard';
@@ -6,6 +7,7 @@ import {
   Briefcase, MessageSquare, TrendingUp, CheckCircle,
   Clock, Target, Send, XCircle,
   Download, Upload, AlertCircle,
+  PlusCircle, Tags, FileText,
 } from 'lucide-react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
@@ -13,6 +15,7 @@ import {
 } from 'recharts';
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const { state, addJob, addTemplate, addTag } = useApp();
   const stats = computeStats(state.jobs);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -93,6 +96,67 @@ export default function Dashboard() {
   return (
     <div>
       <h2 className="text-2xl font-bold text-gray-800 mb-6">数据看板</h2>
+
+      {/* 空状态引导 */}
+      {stats.total === 0 && (
+        <div className="bg-white rounded-2xl border border-gray-200 p-8 mb-6 text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-50 rounded-2xl mb-4">
+            <Briefcase size={32} className="text-blue-500" />
+          </div>
+          <h3 className="text-lg font-semibold text-gray-800 mb-2">欢迎使用投简历助手！</h3>
+          <p className="text-sm text-gray-500 mb-6 max-w-md mx-auto">
+            你还没有任何投递记录，按下面三步开始你的求职之旅
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 text-left max-w-2xl mx-auto">
+            <div className="flex gap-3 p-4 bg-blue-50 rounded-xl">
+              <span className="flex items-center justify-center w-7 h-7 rounded-full bg-blue-600 text-white text-xs font-bold shrink-0">1</span>
+              <div>
+                <p className="text-sm font-medium text-gray-800">设置分类标签</p>
+                <p className="text-xs text-gray-500 mt-0.5">创建行业、薪资、城市等标签，方便筛选</p>
+              </div>
+            </div>
+            <div className="flex gap-3 p-4 bg-purple-50 rounded-xl">
+              <span className="flex items-center justify-center w-7 h-7 rounded-full bg-purple-600 text-white text-xs font-bold shrink-0">2</span>
+              <div>
+                <p className="text-sm font-medium text-gray-800">准备打招呼模板</p>
+                <p className="text-xs text-gray-500 mt-0.5">编辑或新建联系 HR 的话术模板</p>
+              </div>
+            </div>
+            <div className="flex gap-3 p-4 bg-green-50 rounded-xl">
+              <span className="flex items-center justify-center w-7 h-7 rounded-full bg-green-600 text-white text-xs font-bold shrink-0">3</span>
+              <div>
+                <p className="text-sm font-medium text-gray-800">添加第一条投递</p>
+                <p className="text-xs text-gray-500 mt-0.5">填写公司和岗位信息，开始追踪</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center gap-3">
+            <button
+              onClick={() => navigate('/tags')}
+              className="flex items-center gap-1.5 px-4 py-2 text-sm text-purple-700 bg-purple-50 rounded-xl hover:bg-purple-100 transition-colors"
+            >
+              <Tags size={16} />
+              设置标签
+            </button>
+            <button
+              onClick={() => navigate('/templates')}
+              className="flex items-center gap-1.5 px-4 py-2 text-sm text-blue-700 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors"
+            >
+              <FileText size={16} />
+              编辑模板
+            </button>
+            <button
+              onClick={() => navigate('/jobs/new')}
+              className="flex items-center gap-1.5 px-4 py-2 text-sm text-white bg-blue-600 rounded-xl hover:bg-blue-700 transition-colors"
+            >
+              <PlusCircle size={16} />
+              新增岗位
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* 概览卡片 */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
