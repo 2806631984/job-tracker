@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../store/AppContext';
-import { computeStats } from '../utils/stats';
+import { computeStats, type DateRange } from '../utils/stats';
 import StatCard from '../components/StatCard';
 import {
   Briefcase, MessageSquare, TrendingUp, CheckCircle,
@@ -18,7 +18,8 @@ import { StatCardSkeleton, Skeleton } from '../components/Skeleton';
 export default function Dashboard() {
   const navigate = useNavigate();
   const { state, loading, addJob, addTemplate, addTag } = useApp();
-  const stats = computeStats(state.jobs);
+  const [dateRange, setDateRange] = useState<DateRange>('all');
+  const stats = computeStats(state.jobs, dateRange);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [importMsg, setImportMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
@@ -96,7 +97,24 @@ export default function Dashboard() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">数据看板</h2>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">数据看板</h2>
+        <div className="flex items-center gap-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg p-1 self-start">
+          {(['7d', '30d', 'all'] as DateRange[]).map((r) => (
+            <button
+              key={r}
+              onClick={() => setDateRange(r)}
+              className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
+                dateRange === r
+                  ? 'bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 shadow-sm'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+              }`}
+            >
+              {r === '7d' ? '近 7 天' : r === '30d' ? '近 30 天' : '全部'}
+            </button>
+          ))}
+        </div>
+      </div>
 
       {loading && (
         <div className="space-y-6 mb-6">
@@ -215,9 +233,11 @@ export default function Dashboard() {
           )}
         </div>
 
-        {/* 近30天投递趋势 */}
+        {/* 投递趋势 */}
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-5">
-          <h3 className="text-base font-semibold text-gray-700 dark:text-gray-200 mb-4">近30天投递趋势</h3>
+          <h3 className="text-base font-semibold text-gray-700 dark:text-gray-200 mb-4">
+            {dateRange === '7d' ? '近 7 天投递趋势' : '近 30 天投递趋势'}
+          </h3>
           {stats.total === 0 ? (
             <div className="text-center py-12 text-gray-400">
               <TrendingUp size={40} className="mx-auto mb-3 opacity-40" />
