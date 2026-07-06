@@ -13,10 +13,11 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   LineChart, Line,
 } from 'recharts';
+import { StatCardSkeleton, Skeleton } from '../components/Skeleton';
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const { state, addJob, addTemplate, addTag } = useApp();
+  const { state, loading, addJob, addTemplate, addTag } = useApp();
   const stats = computeStats(state.jobs);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [importMsg, setImportMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
@@ -97,6 +98,23 @@ export default function Dashboard() {
     <div>
       <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">数据看板</h2>
 
+      {loading && (
+        <div className="space-y-6 mb-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <StatCardSkeleton /><StatCardSkeleton /><StatCardSkeleton /><StatCardSkeleton />
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <StatCardSkeleton /><StatCardSkeleton /><StatCardSkeleton /><StatCardSkeleton />
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Skeleton className="h-64" />
+            <Skeleton className="h-64" />
+          </div>
+        </div>
+      )}
+
+      {!loading && (
+      <>
       {/* 空状态引导 */}
       {stats.total === 0 && (
         <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-8 mb-6 text-center">
@@ -277,6 +295,8 @@ export default function Dashboard() {
           导出数据为 JSON 文件保存到本地。重装系统或换设备后，登录同一账号再导入即可恢复。
         </p>
       </div>
+      </>
+      )}
     </div>
   );
 }
