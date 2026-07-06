@@ -9,6 +9,7 @@ import JobDetail from './pages/JobDetail';
 import Templates from './pages/Templates';
 import Tags from './pages/Tags';
 import Login from './pages/Login';
+import ChangePassword from './pages/ChangePassword';
 
 function AuthGuard({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -47,6 +48,7 @@ function AppRoutes() {
         <Route path="/jobs/:id" element={<JobDetail />} />
         <Route path="/templates" element={<Templates />} />
         <Route path="/tags" element={<Tags />} />
+        <Route path="/change-password" element={<ChangePassword />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
