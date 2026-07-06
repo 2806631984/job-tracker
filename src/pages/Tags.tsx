@@ -64,7 +64,7 @@ export default function Tags() {
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-800">
           分类标签
-          <span className="text-base font-normal text-gray-400 ml-2">({state.tags.length})</span>
+          <span className="text-base font-normal text-gray-400 dark:text-gray-500 ml-2">({state.tags.length})</span>
         </h2>
         <button
           onClick={() => openNew()}
@@ -76,18 +76,18 @@ export default function Tags() {
       </div>
 
       {state.tags.length === 0 ? (
-        <div className="text-center py-16 bg-white rounded-xl border border-gray-200">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-blue-50 rounded-2xl mb-4">
+        <div className="text-center py-16 bg-white dark:bg-gray-900 rounded-xl border border-gray-200">
+          <div className="inline-flex items-center justify-center w-14 h-14 bg-blue-50 dark:bg-blue-900/30 rounded-2xl mb-4">
             <FolderOpen size={28} className="text-blue-400" />
           </div>
-          <h3 className="text-base font-semibold text-gray-700 mb-1">还没有分类标签</h3>
-          <p className="text-sm text-gray-400 mb-5">创建标签后，投递岗位时可以按行业、薪资、城市等维度分类</p>
+          <h3 className="text-base font-semibold text-gray-700 dark:text-gray-200 mb-1">还没有分类标签</h3>
+          <p className="text-sm text-gray-400 dark:text-gray-500 mb-5">创建标签后，投递岗位时可以按行业、薪资、城市等维度分类</p>
           <div className="flex gap-2 justify-center flex-wrap">
             {PRESET_GROUPS.filter(g => g !== '其他').map((g) => (
               <button
                 key={g}
                 onClick={() => openNew(g)}
-                className="px-3 py-1.5 text-sm text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+                className="px-3 py-1.5 text-sm text-blue-600 bg-blue-50 dark:bg-blue-900/30 rounded-lg hover:bg-blue-100 transition-colors"
               >
                 + {g}标签
               </button>
@@ -101,7 +101,7 @@ export default function Tags() {
             return (
               <div key={group}>
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
+                  <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 dark:text-gray-500 uppercase tracking-wide">
                     {group}
                   </h3>
                   <button
@@ -115,7 +115,7 @@ export default function Tags() {
                   {groupTags.map((tag) => (
                     <div
                       key={tag.id}
-                      className="flex items-center justify-between bg-white rounded-lg border border-gray-200 px-3 py-2.5 hover:border-gray-300 transition-colors group"
+                      className="flex items-center justify-between bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 px-3 py-2.5 hover:border-gray-300 dark:border-gray-600 transition-colors group"
                     >
                       <div className="flex items-center gap-2">
                         <span
@@ -130,7 +130,7 @@ export default function Tags() {
                       <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
                         <button
                           onClick={() => openEdit(tag)}
-                          className="p-1 text-gray-400 hover:text-gray-600 rounded"
+                          className="p-1 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:text-gray-300 rounded"
                         >
                           <Pencil size={12} />
                         </button>
@@ -140,7 +140,7 @@ export default function Tags() {
                               deleteTag(tag.id);
                             }
                           }}
-                          className="p-1 text-gray-400 hover:text-red-600 rounded"
+                          className="p-1 text-gray-400 dark:text-gray-500 hover:text-red-600 rounded"
                         >
                           <Trash2 size={12} />
                         </button>
@@ -157,14 +157,14 @@ export default function Tags() {
       {/* 新增/编辑弹窗 */}
       {showForm && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-sm mx-4 shadow-xl">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 w-full max-w-sm mx-4 shadow-xl">
             <div className="flex items-center justify-between mb-5">
               <h3 className="text-lg font-bold text-gray-800">
                 {editingId ? '编辑标签' : '新增标签'}
               </h3>
               <button
                 onClick={() => setShowForm(false)}
-                className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
               >
                 <X size={18} className="text-gray-400" />
               </button>
@@ -172,19 +172,19 @@ export default function Tags() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">标签名称</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">标签名称</label>
                 <input
                   type="text"
                   value={formName}
                   onChange={(e) => setFormName(e.target.value)}
                   placeholder="如：互联网/IT"
-                  className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   autoFocus
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">颜色</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">颜色</label>
                 <div className="flex gap-2 flex-wrap">
                   {PRESET_COLORS.map((c) => (
                     <button
@@ -201,7 +201,7 @@ export default function Tags() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">分组</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">分组</label>
                 <div className="flex gap-1.5 flex-wrap">
                   {PRESET_GROUPS.map((g) => (
                     <button
@@ -211,7 +211,7 @@ export default function Tags() {
                       className={`px-3 py-1.5 text-xs rounded-full font-medium transition-colors ${
                         formGroup === g
                           ? 'bg-blue-600 text-white'
-                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                          : 'bg-gray-100 text-gray-600 dark:text-gray-300 hover:bg-gray-200'
                       }`}
                     >
                       {g}
@@ -223,14 +223,14 @@ export default function Tags() {
                   value={formGroup}
                   onChange={(e) => setFormGroup(e.target.value)}
                   placeholder="自定义分组名..."
-                  className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-2"
+                  className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-2"
                 />
               </div>
 
               {/* 预览 */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">预览</label>
-                <div className="bg-gray-50 rounded-lg p-3 flex gap-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">预览</label>
+                <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 flex gap-2">
                   <TagBadge name={formName || '标签预览'} color={formColor} />
                 </div>
               </div>
@@ -239,7 +239,7 @@ export default function Tags() {
             <div className="flex gap-2 mt-6">
               <button
                 onClick={() => setShowForm(false)}
-                className="flex-1 px-4 py-2.5 text-sm text-gray-600 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors"
+                className="flex-1 px-4 py-2.5 text-sm text-gray-600 dark:text-gray-300 bg-gray-100 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               >
                 取消
               </button>
