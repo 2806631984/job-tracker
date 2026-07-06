@@ -95,39 +95,39 @@ export default function Dashboard() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">数据看板</h2>
+      <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">数据看板</h2>
 
       {/* 空状态引导 */}
       {stats.total === 0 && (
-        <div className="bg-white rounded-2xl border border-gray-200 p-8 mb-6 text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-50 rounded-2xl mb-4">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-8 mb-6 text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-50 dark:bg-blue-900/30 rounded-2xl mb-4">
             <Briefcase size={32} className="text-blue-500" />
           </div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">欢迎使用投简历助手！</h3>
-          <p className="text-sm text-gray-500 mb-6 max-w-md mx-auto">
+          <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">欢迎使用投简历助手！</h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-500 mb-6 max-w-md mx-auto">
             你还没有任何投递记录，按下面三步开始你的求职之旅
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 text-left max-w-2xl mx-auto">
-            <div className="flex gap-3 p-4 bg-blue-50 rounded-xl">
+            <div className="flex gap-3 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-xl">
               <span className="flex items-center justify-center w-7 h-7 rounded-full bg-blue-600 text-white text-xs font-bold shrink-0">1</span>
               <div>
                 <p className="text-sm font-medium text-gray-800">设置分类标签</p>
-                <p className="text-xs text-gray-500 mt-0.5">创建行业、薪资、城市等标签，方便筛选</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500 mt-0.5">创建行业、薪资、城市等标签，方便筛选</p>
               </div>
             </div>
-            <div className="flex gap-3 p-4 bg-purple-50 rounded-xl">
+            <div className="flex gap-3 p-4 bg-purple-50 dark:bg-purple-900/30 rounded-xl">
               <span className="flex items-center justify-center w-7 h-7 rounded-full bg-purple-600 text-white text-xs font-bold shrink-0">2</span>
               <div>
                 <p className="text-sm font-medium text-gray-800">准备打招呼模板</p>
-                <p className="text-xs text-gray-500 mt-0.5">编辑或新建联系 HR 的话术模板</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500 mt-0.5">编辑或新建联系 HR 的话术模板</p>
               </div>
             </div>
-            <div className="flex gap-3 p-4 bg-green-50 rounded-xl">
+            <div className="flex gap-3 p-4 bg-green-50 dark:bg-green-900/30 rounded-xl">
               <span className="flex items-center justify-center w-7 h-7 rounded-full bg-green-600 text-white text-xs font-bold shrink-0">3</span>
               <div>
                 <p className="text-sm font-medium text-gray-800">添加第一条投递</p>
-                <p className="text-xs text-gray-500 mt-0.5">填写公司和岗位信息，开始追踪</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500 mt-0.5">填写公司和岗位信息，开始追踪</p>
               </div>
             </div>
           </div>
@@ -135,14 +135,14 @@ export default function Dashboard() {
           <div className="flex items-center justify-center gap-3">
             <button
               onClick={() => navigate('/tags')}
-              className="flex items-center gap-1.5 px-4 py-2 text-sm text-purple-700 bg-purple-50 rounded-xl hover:bg-purple-100 transition-colors"
+              className="flex items-center gap-1.5 px-4 py-2 text-sm text-purple-700 bg-purple-50 dark:bg-purple-900/30 rounded-xl hover:bg-purple-100 transition-colors"
             >
               <Tags size={16} />
               设置标签
             </button>
             <button
               onClick={() => navigate('/templates')}
-              className="flex items-center gap-1.5 px-4 py-2 text-sm text-blue-700 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors"
+              className="flex items-center gap-1.5 px-4 py-2 text-sm text-blue-700 bg-blue-50 dark:bg-blue-900/30 rounded-xl hover:bg-blue-100 transition-colors"
             >
               <FileText size={16} />
               编辑模板
@@ -177,8 +177,8 @@ export default function Dashboard() {
       {/* 图表区 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* 状态分布柱状图 */}
-        <div className="bg-white rounded-xl border border-gray-200 p-5">
-          <h3 className="text-base font-semibold text-gray-700 mb-4">各状态分布</h3>
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-5">
+          <h3 className="text-base font-semibold text-gray-700 dark:text-gray-200 mb-4">各状态分布</h3>
           {stats.total === 0 ? (
             <div className="text-center py-12 text-gray-400">
               <Briefcase size={40} className="mx-auto mb-3 opacity-40" />
@@ -198,8 +198,8 @@ export default function Dashboard() {
         </div>
 
         {/* 近30天投递趋势 */}
-        <div className="bg-white rounded-xl border border-gray-200 p-5">
-          <h3 className="text-base font-semibold text-gray-700 mb-4">近30天投递趋势</h3>
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-5">
+          <h3 className="text-base font-semibold text-gray-700 dark:text-gray-200 mb-4">近30天投递趋势</h3>
           {stats.total === 0 ? (
             <div className="text-center py-12 text-gray-400">
               <TrendingUp size={40} className="mx-auto mb-3 opacity-40" />
@@ -221,27 +221,27 @@ export default function Dashboard() {
 
       {/* 本周/本月新增 */}
       <div className="grid grid-cols-2 gap-4 mt-6">
-        <div className="bg-white rounded-xl border border-gray-200 p-4 text-center">
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-4 text-center">
           <div className="text-sm text-gray-500">本周新增投递</div>
           <div className="text-3xl font-bold text-blue-600 mt-1">{stats.thisWeek}</div>
         </div>
-        <div className="bg-white rounded-xl border border-gray-200 p-4 text-center">
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-4 text-center">
           <div className="text-sm text-gray-500">本月新增投递</div>
           <div className="text-3xl font-bold text-blue-600 mt-1">{stats.thisMonth}</div>
         </div>
       </div>
 
       {/* 数据导出/导入 */}
-      <div className="mt-6 bg-white rounded-xl border border-gray-200 p-5">
-        <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
+      <div className="mt-6 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-5">
+        <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-4">
           数据备份
         </h3>
 
         {importMsg && (
           <div className={`flex items-center gap-2 text-sm px-4 py-2.5 rounded-lg mb-4 ${
             importMsg.type === 'success'
-              ? 'bg-green-50 text-green-700'
-              : 'bg-red-50 text-red-700'
+              ? 'bg-green-50 dark:bg-green-900/30 text-green-700'
+              : 'bg-red-50 dark:bg-red-900/30 text-red-700'
           }`}>
             <AlertCircle size={16} />
             {importMsg.text}
@@ -266,14 +266,14 @@ export default function Dashboard() {
           />
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-gray-700 text-sm font-medium rounded-xl border border-gray-300 hover:bg-gray-50 transition-colors"
+            className="flex items-center justify-center gap-2 px-5 py-2.5 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-xl border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-800 transition-colors"
           >
             <Upload size={16} />
             导入备份（JSON）
           </button>
         </div>
 
-        <p className="text-xs text-gray-400 mt-3">
+        <p className="text-xs text-gray-400 dark:text-gray-500 mt-3">
           导出数据为 JSON 文件保存到本地。重装系统或换设备后，登录同一账号再导入即可恢复。
         </p>
       </div>
