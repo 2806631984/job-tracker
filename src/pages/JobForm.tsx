@@ -94,7 +94,7 @@ export default function JobForm() {
       <div className="flex items-center gap-4 mb-6">
         <button
           onClick={() => navigate(-1)}
-          className="p-2 rounded-lg hover:bg-gray-200 transition-colors"
+          className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
         >
           <ArrowLeft size={20} className="text-gray-600" />
         </button>
@@ -105,12 +105,12 @@ export default function JobForm() {
 
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* 基本信息 */}
-        <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">
-          <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">基本信息</h3>
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-5 space-y-4">
+          <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 dark:text-gray-500 uppercase tracking-wide">基本信息</h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                 公司名称 <span className="text-red-400">*</span>
               </label>
               <input
@@ -119,11 +119,11 @@ export default function JobForm() {
                 onChange={(e) => setCompany(e.target.value)}
                 placeholder="如：字节跳动"
                 required
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                 岗位名称 <span className="text-red-400">*</span>
               </label>
               <input
@@ -132,15 +132,15 @@ export default function JobForm() {
                 onChange={(e) => setPosition(e.target.value)}
                 placeholder="如：前端开发工程师"
                 required
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">当前状态</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">当前状态</label>
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as JobStatus)}
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 {STATUS_ORDER.map((s) => (
                   <option key={s} value={s}>
@@ -150,31 +150,31 @@ export default function JobForm() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">薪资范围</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">薪资范围</label>
               <input
                 type="text"
                 value={salary}
                 onChange={(e) => setSalary(e.target.value)}
                 placeholder="如：20K-30K"
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">工作地点</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">工作地点</label>
               <input
                 type="text"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="如：北京·朝阳区"
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">投递平台</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">投递平台</label>
               <select
                 value={platform}
                 onChange={(e) => setPlatform(e.target.value)}
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">请选择</option>
                 <option value="Boss直聘">Boss直聘</option>
@@ -189,63 +189,63 @@ export default function JobForm() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">投递日期</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">投递日期</label>
               <input
                 type="date"
                 value={applyDate}
                 onChange={(e) => setApplyDate(e.target.value)}
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">岗位链接</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">岗位链接</label>
             <input
               type="url"
               value={jobUrl}
               onChange={(e) => setJobUrl(e.target.value)}
               placeholder="https://..."
-              className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
         </div>
 
         {/* 联系人 */}
-        <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">
-          <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">联系人</h3>
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-5 space-y-4">
+          <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 dark:text-gray-500 uppercase tracking-wide">联系人</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">HR/联系人</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">HR/联系人</label>
               <input
                 type="text"
                 value={contactName}
                 onChange={(e) => setContactName(e.target.value)}
                 placeholder="姓名或昵称"
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">联系方式</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">联系方式</label>
               <input
                 type="text"
                 value={contactInfo}
                 onChange={(e) => setContactInfo(e.target.value)}
                 placeholder="微信/手机号"
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </div>
         </div>
 
         {/* 打招呼模板 */}
-        <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">
-          <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">打招呼模板</h3>
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-5 space-y-4">
+          <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 dark:text-gray-500 uppercase tracking-wide">打招呼模板</h3>
           <div>
             <select
               value={templateId}
               onChange={(e) => setTemplateId(e.target.value)}
-              className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">不使用模板</option>
               {state.templates.map((t) => (
@@ -256,12 +256,12 @@ export default function JobForm() {
             </select>
           </div>
           {templatePreview && (
-            <div className="bg-gray-50 rounded-lg p-4 relative">
-              <p className="text-sm text-gray-700 whitespace-pre-wrap pr-12">{templatePreview}</p>
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 relative">
+              <p className="text-sm text-gray-700 dark:text-gray-200 whitespace-pre-wrap pr-12">{templatePreview}</p>
               <button
                 type="button"
                 onClick={copyTemplate}
-                className="absolute top-3 right-3 p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                className="absolute top-3 right-3 p-2 text-gray-400 dark:text-gray-500 hover:text-blue-600 hover:bg-blue-50 dark:bg-blue-900/30 rounded-lg transition-colors"
                 title="复制模板"
               >
                 <Copy size={16} />
@@ -271,15 +271,15 @@ export default function JobForm() {
         </div>
 
         {/* 分类标签 */}
-        <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">
-          <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">分类标签</h3>
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-5 space-y-4">
+          <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 dark:text-gray-500 uppercase tracking-wide">分类标签</h3>
           {state.tags.length === 0 ? (
             <p className="text-sm text-gray-400">暂无标签，请先在"分类标签"页面添加</p>
           ) : (
             <div className="space-y-3">
               {Array.from(new Set(state.tags.map((t) => t.group))).map((group) => (
                 <div key={group}>
-                  <span className="text-xs text-gray-400 mb-1.5 block">{group}</span>
+                  <span className="text-xs text-gray-400 dark:text-gray-500 mb-1.5 block">{group}</span>
                   <div className="flex gap-1.5 flex-wrap">
                     {state.tags
                       .filter((t) => t.group === group)
@@ -300,14 +300,14 @@ export default function JobForm() {
         </div>
 
         {/* 备注 */}
-        <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">
-          <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">备注</h3>
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-5 space-y-4">
+          <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 dark:text-gray-500 uppercase tracking-wide">备注</h3>
           <textarea
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="JD要点、公司印象、注意事项..."
             rows={3}
-            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+            className="w-full px-3 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
           />
         </div>
 
