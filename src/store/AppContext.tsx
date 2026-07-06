@@ -10,6 +10,8 @@ interface AppContextValue {
   updateJob: (id: string, data: Partial<Job>) => Promise<void>;
   deleteJob: (id: string) => Promise<void>;
   addTimelineEvent: (jobId: string, event: Omit<TimelineEvent, 'id'>) => Promise<void>;
+  updateTimelineEvent: (jobId: string, eventId: string, data: Partial<TimelineEvent>) => Promise<void>;
+  deleteTimelineEvent: (jobId: string, eventId: string) => Promise<void>;
   addTemplate: (data: Omit<Template, 'id' | 'createdAt' | 'updatedAt'>) => Promise<Template | null>;
   updateTemplate: (id: string, data: Partial<Template>) => Promise<void>;
   deleteTemplate: (id: string) => Promise<void>;
@@ -155,6 +157,32 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     );
   }, [user, jobs]);
 
+  const updateTimelineEvent = useCallback(async (jobId: string, eventId: string, data: Partial<TimelineEvent>) => {
+    if (!user) return;
+    setJobs((prev) =>
+      prev.map((j) => {
+        if (j.id !== jobId) return j;
+        const updatedTimeline = j.timeline.map((e) =>
+          e.id === eventId ? { ...e, ...data } : e
+        );
+        supabase.from('jobs').update({ timeline: updatedTimeline }).eq('id', jobId);
+        return { ...j, timeline: updatedTimeline };
+      })
+    );
+  }, [user]);
+
+  const deleteTimelineEvent = useCallback(async (jobId: string, eventId: string) => {
+    if (!user) return;
+    setJobs((prev) =>
+      prev.map((j) => {
+        if (j.id !== jobId) return j;
+        const updatedTimeline = j.timeline.filter((e) => e.id !== eventId);
+        supabase.from('jobs').update({ timeline: updatedTimeline }).eq('id', jobId);
+        return { ...j, timeline: updatedTimeline };
+      })
+    );
+  }, [user]);
+
   // ---- Templates ----
   const addTemplate = useCallback(async (data: Omit<Template, 'id' | 'createdAt' | 'updatedAt'>) => {
     if (!user) return null;
@@ -225,6 +253,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     <AppContext.Provider value={{
       state: { jobs, templates, tags },
       addJob, updateJob, deleteJob, addTimelineEvent,
+      updateTimelineEvent, deleteTimelineEvent,
       addTemplate, updateTemplate, deleteTemplate,
       addTag, updateTag, deleteTag,
       loading,
